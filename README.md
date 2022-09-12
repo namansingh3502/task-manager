@@ -24,3 +24,19 @@ Install project dependencies:
 You can now run the development server:
 
     $ python manage.py runserver
+
+## URL endpoints
+
+login  : http://127.0.0.1:8000/auth/token/login/
+
+logout : http://127.0.0.1:8000/auth/token/logout/
+
+task-list  : http://127.0.0.1:8000/api/task-list/
+
+task-details  : http://127.0.0.1:8000/api/task-detail/<task_id>/
+
+task-create  : http://127.0.0.1:8000/api/task-create/
+
+task-update  : http://127.0.0.1:8000/api/task-update/<task_id>/
+
+task-delete  : http://127.0.0.1:8000/api/task-delete/<task_id>/

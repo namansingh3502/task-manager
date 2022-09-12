@@ -10,6 +10,10 @@ from .serializers import TaskSerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def task_list(request):
+    """
+    :return: list of task
+    """
+
     tasks = Task.objects.filter(user=request.user).order_by('-id')
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
@@ -18,6 +22,11 @@ def task_list(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def task_detail(request, task_id):
+    """
+    :param request:
+    :param task_id:
+    :return: details of the task_id if that task is created by the loggedin user else error 401
+    """
     try:
         tasks = Task.objects.get(id=task_id, user=request.user)
     except Task.DoesNotExist:
@@ -29,6 +38,12 @@ def task_detail(request, task_id):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def task_create(request):
+    """
+
+    :param request:
+    :return: Create new task and return Success and error msgs
+    """
+
     serializer = TaskSerializer(data=request.data)
 
     if serializer.is_valid():
@@ -43,6 +58,12 @@ def task_create(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def task_update(request, task_id):
+    """
+
+    :param request:
+    :param task_id:
+    :return: update task details if task is created by the user loggedin else error 401
+    """
     try:
         task = Task.objects.get(id=task_id, user=request.user)
     except Task.DoesNotExist:
@@ -58,6 +79,12 @@ def task_update(request, task_id):
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def task_delete(request, task_id):
+    """
+
+    :param request:
+    :param task_id:
+    :return: delete task details if task is created by the user loggedin else error 401
+    """
     try:
         task = Task.objects.get(id=task_id, user=request.user)
         task.delete()
